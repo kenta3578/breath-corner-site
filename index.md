@@ -1,4 +1,4 @@
-# BreathCorner
+# Tidebreath
 
 PC で作業しているあいだに浅くなる呼吸を戻す、Mac のメニューバー常駐アプリです。
 
@@ -32,7 +32,7 @@ PC で作業しているあいだに浅くなる呼吸を戻す、Mac のメニ�
 
 #### 送信・共有
 
-BreathCorner は通信をしません。OS の権限（アクセシビリティ・画面収録など）も求めません。情報を外に送ることも、第三者と共有することもありません。広告や利用状況の計測も入れていません。
+Tidebreath は通信をしません。OS の権限（アクセシビリティ・画面収録など）も求めません。情報を外に送ることも、第三者と共有することもありません。広告や利用状況の計測も入れていません。
 
 #### 削除
 
@@ -44,7 +44,7 @@ https://github.com/kenta3578/breath-corner-site/issues
 
 ### English
 
-BreathCorner is a menu bar app for Mac that helps you return to slow breathing while you work.
+Tidebreath is a menu bar app for Mac that helps you return to slow breathing while you work.
 
 #### Information handled
 
@@ -53,11 +53,11 @@ BreathCorner is a menu bar app for Mac that helps you return to slow breathing w
 | Settings (corner circle, menu bar dot, dedicated screen, breathing pattern, appearance) | To start with the same settings next time | Only on this Mac |
 | Seconds since the last keyboard or mouse input | To tell whether you are still working or have paused | Not stored |
 
-BreathCorner does not read what you type, which apps you use, or the content of your keyboard and mouse input.
+Tidebreath does not read what you type, which apps you use, or the content of your keyboard and mouse input.
 
 #### Transmission and sharing
 
-BreathCorner makes no network connections and asks for no system permissions (such as Accessibility or Screen Recording). It does not send any information off your Mac or share it with third parties. It contains no ads or analytics.
+Tidebreath makes no network connections and asks for no system permissions (such as Accessibility or Screen Recording). It does not send any information off your Mac or share it with third parties. It contains no ads or analytics.
 
 #### Deletion
 
