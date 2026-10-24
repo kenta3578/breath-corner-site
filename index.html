@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tidebreath — パソコンの前で浅くなる呼吸を、画面の下の波で</title>
+<meta name="description" content="Tidebreath は、画面の下端に呼吸に合わせて寄せて引く波を出す Mac アプリです。通知は出さず、25分続けて作業したときだけ波が少し濃くなります。">
+<meta property="og:title" content="Tidebreath — パソコンの前で浅くなる呼吸を、画面の下の波で">
+<meta property="og:description" content="画面の下端に、呼吸に合わせて寄せて引く波を出す Mac アプリ。通知は出しません。">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://kenta3578.github.io/breath-corner-site/images/ja-2-shore.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  :root {
+    --bg: #0b1426; --bg2: #101c33; --line: #22314b;
+    --text: #e3ebf3; --sub: #93a6bb; --accent: #5ec8be; --wave: 94, 200, 190;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); line-height: 1.8;
+         font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif; }
+  a { color: var(--accent); }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 20px; }
+  section { padding: 72px 0; border-top: 1px solid var(--line); }
+  h1 { font-size: clamp(28px, 5.2vw, 44px); font-weight: 300; line-height: 1.45; letter-spacing: .02em; }
+  h2 { font-size: 22px; font-weight: 400; margin-bottom: 24px; }
+  h3 { font-size: 16px; font-weight: 500; margin-bottom: 4px; }
+  p + p { margin-top: 12px; }
+  .sub { color: var(--sub); }
+
+  /* はじめの画面 */
+  .hero { min-height: 92vh; display: flex; align-items: center; padding: 64px 0 160px; border: 0; }
+  .brand { font-size: 15px; letter-spacing: .14em; color: var(--sub); margin-bottom: 28px; }
+  .lead { margin-top: 24px; font-size: 17px; color: var(--sub); max-width: 34em; }
+  .cta { margin-top: 36px; display: flex; flex-wrap: wrap; gap: 14px 20px; align-items: center; }
+  .btn { display: inline-block; background: var(--text); color: var(--bg); text-decoration: none;
+         padding: 13px 26px; border-radius: 10px; font-weight: 600; font-size: 15px; }
+  .btn:hover { background: #fff; }
+  .meta { font-size: 13px; color: var(--sub); }
+  .try { margin-top: 56px; font-size: 14px; color: var(--sub); }
+  .try b { color: var(--accent); font-weight: 500; display: inline-block; min-width: 4em; }
+
+  /* こんなとき */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+  .card { background: var(--bg2); border: 1px solid var(--line); border-radius: 12px; padding: 20px; }
+  .card p { color: var(--sub); font-size: 14px; }
+
+  figure { margin: 28px 0 0; }
+  figure img { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--line); display: block; }
+  ul.points { list-style: none; padding: 0; display: grid; gap: 14px; }
+  ul.points li { padding-left: 18px; position: relative; }
+  ul.points li::before { content: ""; position: absolute; left: 0; top: .75em; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+
+  dl.faq dt { font-weight: 500; margin-top: 20px; }
+  dl.faq dd { color: var(--sub); margin-left: 0; }
+
+  .price { font-size: 32px; font-weight: 300; }
+
+  /* サポート・プライバシーポリシー */
+  .doc { font-size: 14px; color: var(--sub); }
+  .doc h2 { color: var(--text); }
+  .doc h3 { color: var(--text); margin-top: 28px; font-size: 15px; }
+  .doc h4 { color: var(--text); margin: 20px 0 6px; font-size: 14px; font-weight: 500; }
+  .doc table { border-collapse: collapse; width: 100%; margin: 8px 0; font-size: 13px; }
+  .doc th, .doc td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
+  .tablewrap { overflow-x: auto; }
+  footer { padding: 32px 0 200px; font-size: 12px; color: var(--sub); border-top: 1px solid var(--line); }
+
+  /* 画面の下の波（アプリと同じ、吸う4秒・吐く6秒） */
+  #shore { position: fixed; left: 0; bottom: 0; width: 100%; height: 120px; pointer-events: none; z-index: 10; }
+  @media (max-width: 600px) {
+    section { padding: 56px 0; }
+    .hero { padding-bottom: 120px; }
+    #shore { height: 80px; }
+  }
+</style>
+</head>
+<body>
+
+<main>
+  <div class="hero">
+    <div class="wrap">
+      <div class="brand">Tidebreath</div>
+      <h1>パソコンの前で浅くなる呼吸を、<br>画面の下の波で</h1>
+      <p class="lead">画面の下端に、呼吸に合わせて寄せて引く波を出す Mac アプリです。普段は薄く出ているだけで、通知は出しません。</p>
+      <div class="cta">
+        <!-- App Store で公開したら href を差し替える -->
+        <a class="btn" id="store" href="#price">Mac App Store で見る</a>
+        <span class="meta">¥300（公開記念価格・買い切り）／ macOS 14 以上</span>
+      </div>
+      <p class="try">このページの下にも同じ波を出しています。寄せたら吸って、引いたら吐く。<br>いまは <b id="phase">吸って</b></p>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <h2>こんなとき</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>長く画面に向かっているとき</h3>
+          <p>波が目の端で寄せて引くので、呼吸のことを思い出すきっかけになります。</p>
+        </div>
+        <div class="card">
+          <h3>続けて作業したあと</h3>
+          <p>25分続けて作業すると、波が30秒ほど濃くなります。</p>
+        </div>
+        <div class="card">
+          <h3>オンラインの面接や会議の最中</h3>
+          <p>波は画面共有にも録画にも映りません。相手に知られずに、波に合わせて吸って吐けます。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>25分ごとに波が濃くなる</h2>
+      <ul class="points">
+        <li>波は普段は薄く、下の文字も透けて読めます。クリックも素通りします。高さと濃さはメニューで変えられ、消すこともできます。</li>
+        <li>キーボードかマウスを25分続けて使うと、30秒ほど波が濃くなり、右端に「吸って／吐いて」が出ます。</li>
+        <li>5分以上手を止めると、作業時間を数え直します。</li>
+        <li>波の動きは、吸う4秒・吐く6秒（1分に6回）。吸う秒数と吐く秒数はメニューで選べます。</li>
+      </ul>
+      <figure><img src="images/ja-2-shore.jpg" alt="左が作業中の薄い波、右が25分たったときの濃い波と「吐いて」の文字" width="1440" height="900" loading="lazy"></figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>2枚目のディスプレイに潮を出せる</h2>
+      <p>ディスプレイが2枚以上あるなら、1枚に潮が満ち引きする画面を出せます。色は朝・昼・夕・夜から選ぶか、時刻に合わせて変えられます。</p>
+      <figure><img src="images/ja-1-tide.jpg" alt="暗い画面の下半分で潮が満ち引きし、上に「吐いて」の文字" width="1440" height="900" loading="lazy"></figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>通知・権限・通信なし</h2>
+      <p>通知は出さず、アクセシビリティや画面収録などの権限も求めず、通信もしません。入力の中身や使っているアプリは読みません。メニューバーに常駐し、ログイン時に起動できます。</p>
+    </div>
+  </section>
+
+  <section id="price">
+    <div class="wrap">
+      <h2>価格</h2>
+      <p class="price">¥300</p>
+      <p class="sub">公開記念価格で、しばらくしたら上げる予定です。Windows と iPhone の版はありません。</p>
+      <div class="cta"><a class="btn" href="#price" id="store2">Mac App Store で見る</a></div>
+    </div>
+  </section>
+
+  <section id="support" class="doc">
+    <div class="wrap">
+      <h2>サポート</h2>
+      <p>不具合や要望は <a href="https://github.com/kenta3578/breath-corner-site/issues">Issues</a> に書いてください。</p>
+    </div>
+  </section>
+
+  <section id="privacy" class="doc">
+    <div class="wrap">
+      <h2>プライバシーポリシー / Privacy Policy</h2>
+      <p>最終更新: 2026-10-24</p>
+
+      <h3>日本語</h3>
+      <h4>扱う情報</h4>
+      <div class="tablewrap"><table>
+        <tr><th>情報</th><th>使い道</th><th>置き場所</th></tr>
+        <tr><td>設定（画面下の波・専用画面の出し方、呼吸のパターン、見た目）</td><td>次に起動したときに同じ設定で動かす</td><td>この Mac の中だけ</td></tr>
+        <tr><td>最後にキーボードかマウスを操作してからの秒数</td><td>作業を続けているか、手を止めたかを判断する</td><td>保存しない</td></tr>
+      </table></div>
+      <p>何を入力したか、どのアプリを使っているかは読みません。キーボードやマウスの操作の中身も読みません。</p>
+      <h4>送信・共有</h4>
+      <p>Tidebreath は通信をしません。OS の権限（アクセシビリティ・画面収録など）も求めません。情報を外に送ることも、第三者と共有することもありません。広告や利用状況の計測も入れていません。</p>
+      <h4>削除</h4>
+      <p>アプリを削除すると、設定も一緒に消えます。</p>
+      <h4>問い合わせ</h4>
+      <p><a href="https://github.com/kenta3578/breath-corner-site/issues">https://github.com/kenta3578/breath-corner-site/issues</a></p>
+
+      <h3>English</h3>
+      <p>Tidebreath is a menu bar app for Mac that helps you return to slow breathing while you work.</p>
+      <h4>Information handled</h4>
+      <div class="tablewrap"><table>
+        <tr><th>Information</th><th>Purpose</th><th>Where it is kept</th></tr>
+        <tr><td>Settings (shore waves, dedicated screen, breathing pattern, appearance)</td><td>To start with the same settings next time</td><td>Only on this Mac</td></tr>
+        <tr><td>Seconds since the last keyboard or mouse input</td><td>To tell whether you are still working or have paused</td><td>Not stored</td></tr>
+      </table></div>
+      <p>Tidebreath does not read what you type, which apps you use, or the content of your keyboard and mouse input.</p>
+      <h4>Transmission and sharing</h4>
+      <p>Tidebreath makes no network connections and asks for no system permissions (such as Accessibility or Screen Recording). It does not send any information off your Mac or share it with third parties. It contains no ads or analytics.</p>
+      <h4>Deletion</h4>
+      <p>Deleting the app also deletes its settings.</p>
+      <h4>Contact</h4>
+      <p><a href="https://github.com/kenta3578/breath-corner-site/issues">https://github.com/kenta3578/breath-corner-site/issues</a></p>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">Tidebreath</div></footer>
+
+<svg id="shore" viewBox="0 0 1000 120" preserveAspectRatio="none" aria-hidden="true"><path id="wave"/></svg>
+
+<script>
+  // 吸う4秒・吐く6秒。アプリの画面下の波と同じ速さ
+  const IN = 4, OUT = 6;
+  const path = document.getElementById("wave");
+  const phase = document.getElementById("phase");
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const ease = x => (1 - Math.cos(Math.PI * x)) / 2;
+  const t0 = performance.now();
+  function draw(now) {
+    const t = (now - t0) / 1000, c = t % (IN + OUT);
+    const lv = c < IN ? ease(c / IN) : 1 - ease((c - IN) / OUT);
+    const top = 96 - lv * 64, sway = still ? 0 : t * 0.5;
+    let d = "M0 120 L0 " + top;
+    for (let x = 0; x <= 1000; x += 25) d += " L" + x + " " + (top + Math.sin(x / 140 + sway) * 5).toFixed(1);
+    path.setAttribute("d", d + " L1000 120 Z");
+    path.setAttribute("fill", "rgba(94, 200, 190, 0.16)");
+    phase.textContent = c < IN ? "吸って" : "吐いて";
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+</script>
+</body>
+</html>
