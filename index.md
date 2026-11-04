@@ -14,7 +14,9 @@ OS の通知は出しません。OS の権限も求めません。はじめの7�
 
 ## サポート
 
-不具合や要望は [Issues](https://github.com/kenta3578/breath-corner-site/issues) に書いてください。
+不具合や要望は、メール（[kenta3578.apps+tidebreath@gmail.com](mailto:kenta3578.apps+tidebreath@gmail.com)）で送ってください。
+
+GitHub を使う人は [Issues](https://github.com/kenta3578/breath-corner-site/issues) にも書けます。
 
 購入を別の Mac や入れ直したあとに戻すには、同じ Apple アカウントでサインインして、設定の窓の「購入について」タブの「購入を復元」を押してください。
 
@@ -48,7 +50,9 @@ Tidebreath 自身は通信をしません（上の App Store への問い合わ�
 
 #### 問い合わせ
 
-https://github.com/kenta3578/breath-corner-site/issues
+メール: [kenta3578.apps+tidebreath@gmail.com](mailto:kenta3578.apps+tidebreath@gmail.com)
+
+GitHub Issues: https://github.com/kenta3578/breath-corner-site/issues
 
 ### English
 
@@ -78,4 +82,6 @@ Deleting the app also deletes its settings. Your purchase stays with your Apple 
 
 #### Contact
 
-https://github.com/kenta3578/breath-corner-site/issues
+Email: [kenta3578.apps+tidebreath@gmail.com](mailto:kenta3578.apps+tidebreath@gmail.com)
+
+GitHub Issues: https://github.com/kenta3578/breath-corner-site/issues
